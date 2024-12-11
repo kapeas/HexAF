@@ -52,10 +52,7 @@ docker compose up --build
 - (Insertar capturas resultados.)
 
 ### Video completo del proceso de descarga y puesta en marcha
-
-* PENDIENTE GRABACIÓN VIDEO Y SUSTITUIR VIDEO_ID DEL ACTUAL POR EL GRABADO
-
-[![Cargando video placeholder](http://img.youtube.com/vi/yup8gIXxWDU/0.jpg)](http://www.youtube.com/watch?v=yup8gIXxWDU)
+[![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
 
 ### API-FIRST: Generar código de los contralodores REST de servicio y cliente desde la definición de API en OAS3. También los clientes
 Esto nos permite generar las interfaces a implementar para los clientes y servicios
