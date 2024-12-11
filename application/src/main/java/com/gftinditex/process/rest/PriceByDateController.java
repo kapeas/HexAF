@@ -22,8 +22,6 @@ import java.util.Optional;
 public class PriceByDateController implements ProductosApi {
 
     //TODO: Crear Servicios . Código desacoplado!!!!
-    //TODO: Gestionar 400 y otros posibles errores.
-
     Logger logger = LoggerFactory.getLogger(PriceByDateController.class);
     @Autowired
     private DefaultApi api;
