@@ -2,6 +2,10 @@
 - Autor: Francisco Luis Serrano Teruel
 - Proyecto: proceso GFTInditex
 
+
+### Video completo del proceso de descarga y puesta en marcha
+[![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
+
 # Características de la solución:
 * Java 23
 * Docker + compose
@@ -50,9 +54,6 @@ docker compose up --build
 - Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
 - Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos. Todos OK.
 - (Insertar capturas resultados.)
-
-### Video completo del proceso de descarga y puesta en marcha
-[![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
 
 ### API-FIRST: Generar código de los contralodores REST de servicio y cliente desde la definición de API en OAS3. También los clientes
 Esto nos permite generar las interfaces a implementar para los clientes y servicios
