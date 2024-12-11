@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- Introducimos una nueva línea en blanco para probar el CI al hacer push -->
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<packaging>pom</packaging>
+	<properties>
+		<java.version>23</java.version>
+	</properties>
+	
+	<!-- módulos -->
+	<modules>
+		<module>infra-adapters</module>
+		<module>domain</module>
+		<module>application</module>
+	</modules>
+		
+	<groupId>com.gftinditex.flst</groupId>
+	<artifactId>root</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>rootartifact</name>
+	<description>Root project for inditex test process</description>
+	
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	
+	
+	<dependencies>
+		<!-- Dependencias comunes a los 3 módulos . //TODO añadir el resto y limpiar en los módulos -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+		
+		</plugins>
+	</build>
+
+</project>

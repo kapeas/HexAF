@@ -1,0 +1,831 @@
+{
+	"info": {
+		"_postman_id": "812ae810-2f87-4d30-b52e-0caea4e9469f",
+		"name": "GFT-Process-E2E-TESTS-Collection",
+		"description": "Api con los tests funcionales para el proyecto de proceso de selección de GFT.  \nAutor: Francisco Luis Serrano",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40340556"
+	},
+	"item": [
+		{
+			"name": "Test 1: \"10:00 del día 14 del producto 35455   para la brand 1\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 200 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Precio = 35.5\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.precio).to.eq(35.5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Divisa String y EUR\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.divisa).to.match(/^EUR$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-14T10:00:00Z&articulo=35455&marca=1&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-14T10:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 2: \"16:00 del día 14 del producto 35455   para la brand 1\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 200 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Precio = 25.45\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.precio).to.eq(25.45);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Divisa String y EUR\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.divisa).to.match(/^EUR$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-14T16:00:00Z&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-14T16:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 3: \"21:00 del día 14 del producto 35455   para la brand 1\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 200 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Atención al campo prioridad. Si hay más de un registro que coincida en el between, seleccionar el de mayor prioridad (desde server.gestionado con order by y limit)\r",
+							"pm.test(\"Precio = 35.5\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.precio).to.eq(35.5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Divisa String y EUR\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.divisa).to.match(/^EUR$/);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-14T21:00:00Z&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-14T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 4: \"10:00 del día 15 del producto 35455   para la brand 1\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 200 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Precio = 30.50\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.precio).to.eq(30.50);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Divisa String y EUR\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.divisa).to.match(/^EUR$/);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-15T10:00:00Z&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-15T10:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 5: \"21:00 del día 16 del producto 35455   para la brand 1\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 200 OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 200 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Precio = 38.95 \", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.precio).to.eq(38.95);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Divisa String y EUR\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.divisa).to.match(/^EUR$/);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-16T21:00:00Z&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-16T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 6 \"Bad Request null fecha\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta Contiene tiene status 400 y el mensaje de porqué es errónea\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.mensaje).to.eq(\"El parámetro fecha es obligatorio y debe tener un formato correcto (YYYY-MM-DDTHH:mm:ssZ).\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 7 \"Bad Request null articulo\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta Contiene tiene status 400 y el mensaje de porqué es errónea\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.mensaje).to.eq(\"El parámetro articulo es obligatorio y debe ser un entero.\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-16T21:00:00Z&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-16T21:00:00Z"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 8 \"Bad Request null marca\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta Contiene tiene status 400 y el mensaje de porqué es errónea\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.mensaje).to.eq(\"El parámetro marca es obligatorio y debe ser un entero.\");}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-16T21:00:00Z&articulo=35455",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-16T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 9 \"No record found for given params\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// use the `pm.*` API to write your test\r",
+							"// the `pm.test()` method accepts 2 parameters\r",
+							"// the first parameter is the name of your test (be descriptive)\r",
+							"// the second parameter is a function whereby if any assertions within your function fail, then the test will fail\r",
+							"\r",
+							"pm.test(\"Devuelve Http Status 404\", function () {\r",
+							"    // make an assertion\r",
+							"    // if your assertion throws an error, this test will fail\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 404 y content-type application/json\", function () {\r",
+							"    // make as many assertions as you'd like as part of this test\r",
+							"    // if any assertion throws an error, this test will fail\r",
+							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta Contiene tiene status 404 y el mensaje de porqué es errónea\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.mensaje).to.eq(\"No se han encontrado registros de precios para los parámetros proporcionados\");}\r",
+							");\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2024-06-16T21:00:00Z&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2024-06-16T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 10 \"Invalid data type for fecha\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=blahhhh&articulo=35455&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "blahhhh"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 11 \"invalid data type for articulo\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-16T21:00:00Z&articulo=Pantaloooon&marca=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-16T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "Pantaloooon"
+						},
+						{
+							"key": "marca",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 12 \"Invalid data type for brand\"",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Devuelve Http Status 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"La respuesta tiene status 400 y content-type application/json\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/productos?fecha=2020-06-16T21:00:00Z&articulo=35455&marca=zara",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "2020-06-16T21:00:00Z"
+						},
+						{
+							"key": "articulo",
+							"value": "35455"
+						},
+						{
+							"key": "marca",
+							"value": "zara"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

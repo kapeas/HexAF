@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "276c0ac1-f393-43ea-8b18-b9b56d0d2275",
+		"name": "OpenAPI definition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1052951"
+	},
+	"item": [
+		{
+			"name": "productos",
+			"item": [
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/productos?fecha=<date>&articulo=<integer>&marca=<integer>",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"productos"
+							],
+							"query": [
+								{
+									"key": "fecha",
+									"value": "<date>",
+									"description": "(Required) Fecha en formato YYYY-MM-DD."
+								},
+								{
+									"key": "articulo",
+									"value": "<integer>",
+									"description": "(Required) ID del artículo."
+								},
+								{
+									"key": "marca",
+									"value": "<integer>",
+									"description": "(Required) ID de la marca."
+								}
+							]
+						},
+						"description": "Devuelve un json con el precio del producto solicitado en la fecha indicada (según los parámetros proporcionados)."
+					},
+					"response": [
+						{
+							"name": "Precio del producto en una fecha concreta devuelto correctamente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/productos?fecha=<date>&articulo=<integer>&marca=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"productos"
+									],
+									"query": [
+										{
+											"key": "fecha",
+											"value": "<date>",
+											"description": "(Required) Fecha en formato YYYY-MM-DD."
+										},
+										{
+											"key": "articulo",
+											"value": "<integer>",
+											"description": "(Required) ID del artículo."
+										},
+										{
+											"key": "marca",
+											"value": "<integer>",
+											"description": "(Required) ID de la marca."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"product_id\": \"<integer>\",\n  \"marca\": \"<integer>\",\n  \"fecha_creacion\": \"<date>\",\n  \"orden_precio\": \"<integer>\",\n  \"prioridad\": \"<integer>\",\n  \"precio\": \"<float>\",\n  \"divisa\": \"<string>\",\n  \"mensaje\": \"<string>\"\n}"
+						},
+						{
+							"name": "Petición para obtener precio del producto en una fecha concreta errónea",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/productos?fecha=<date>&articulo=<integer>&marca=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"productos"
+									],
+									"query": [
+										{
+											"key": "fecha",
+											"value": "<date>",
+											"description": "(Required) Fecha en formato YYYY-MM-DD."
+										},
+										{
+											"key": "articulo",
+											"value": "<integer>",
+											"description": "(Required) ID del artículo."
+										},
+										{
+											"key": "marca",
+											"value": "<integer>",
+											"description": "(Required) ID de la marca."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"product_id\": \"<integer>\",\n  \"marca\": \"<integer>\",\n  \"fecha_creacion\": \"<date>\",\n  \"orden_precio\": \"<integer>\",\n  \"prioridad\": \"<integer>\",\n  \"precio\": \"<float>\",\n  \"divisa\": \"<string>\",\n  \"mensaje\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}

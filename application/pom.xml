@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>root</artifactId>
+		<groupId>com.gftinditex.flst</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>application</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>application</name>
+	<description>Application project for Spring Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>23</java.version>
+		<start-class>com.gftinditex.process.DemoApplication</start-class>
+
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>6.6.0</version>
+				<executions>
+
+					<execution>
+						<id>generate-spring-server-code-from-oas3spec</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/application-oas-api.yml</inputSpec>
+							<generatorName>spring</generatorName>
+							<output>${project.build.directory}/generated-sources/openapi</output>
+							<apiPackage>com.gftinditex.adapterserver.api</apiPackage>
+							<modelPackage>com.gftinditex.adapterserver.model</modelPackage>
+							<configOptions>
+								<library>spring-boot</library>
+								<oas3>true</oas3>
+								<!-- javax.* to jakarta.* -->
+								<useSpringBoot3>true</useSpringBoot3>
+								<useJakartaEe>true</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>generate-domain-client-code</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- Webclient generator config -->
+							<generatorName>java</generatorName>
+							<library>webclient</library>
+
+							<inputSpec>
+								${project.basedir}/src/main/resources/domain-oas-api.yml
+							</inputSpec>
+
+							<skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+							<generateApis>true</generateApis>
+							<generateApiDocumentation>false</generateApiDocumentation>
+							<generateApiTests>false</generateApiTests>
+							<generateModels>true</generateModels>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<generateModelTests>false</generateModelTests>
+							<skipValidateSpec>true</skipValidateSpec>
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<output>${project.build.directory}/generated-sources</output>
+							<!-- Model java package name -->
+							<modelPackage>com.gftinditex.generatedcoreclient.model</modelPackage>
+							<!-- API java package name -->
+							<apiPackage>com.gftinditex.generatedcoreclient.api</apiPackage>
+
+							<!-- Template to override some default generation template for the webclient -->
+							<templateDirectory>
+								${project.basedir}/src/main/resources/generator-template-overrides/webclient
+							</templateDirectory>
+
+							<configOptions>
+								<oas3>true</oas3>
+								<useSpringController>true</useSpringController>
+								<useSpringfox>false</useSpringfox>
+
+								<sourceFolder>main/java</sourceFolder>
+								<!-- Use modern java8 date/time api -->
+								<dateLibrary>java8</dateLibrary>
+								<java8>true</java8>
+
+								<!-- Do not include any validation with the client -->
+								<useBeanValidation>false</useBeanValidation>
+								<performBeanValidation>false</performBeanValidation>
+								<interfaceOnly>false</interfaceOnly>
+								<useOptional>false</useOptional>
+
+								<!-- Make the models serializable -->
+								<serializableModel>true</serializableModel>
+
+								<library>native</library>
+								<oas3>true</oas3>
+								<!-- javax.* to jakarta.* -->
+								<useSpringBoot3>true</useSpringBoot3>
+								<useJakartaEe>true</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>

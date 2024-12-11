@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: FLST Application API
+  description: API para filtrar productos por fecha, artículo y marca.
+  version: 1.0.0
+paths:
+  /productos:
+    get:
+      summary: Obtener productos
+      description: Devuelve un json con el precio del producto solicitado en la fecha indicada (según los parámetros proporcionados).
+      parameters:
+        - name: fecha
+          in: query
+          description: Fecha en formato YYYY-MM-DDTHH:mm:ssZ
+          schema:
+            type: string
+            format: date-time
+        - name: articulo
+          in: query
+          description: ID del artículo.
+          schema:
+            type: integer
+        - name: marca
+          in: query
+          description: ID de la marca.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Precio del producto en una fecha concreta devuelto correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                  marca:
+                    type: integer
+                  fecha_consultada:
+                    type: string
+                    format: date-time
+                  fecha_inicio_campania:
+                    type: string
+                    format: date-time
+                  fecha_fin_campania:
+                    type: string
+                    format: date-time
+                  orden_precio:
+                    type: integer
+                  prioridad:
+                    type: integer
+                  precio:
+                    type: float
+                  divisa:
+                    type: string
+                  mensaje:
+                    type: string
+        '400':
+          description: Petición para obtener precio del producto en una fecha concreta errónea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                  marca:
+                    type: integer
+                  fecha_consultada:
+                    type: string
+                    format: date-time
+                  fecha_inicio_campania:
+                    type: string
+                    format: date-time
+                  fecha_fin_campania:
+                    type: string
+                    format: date-time
+                  orden_precio:
+                    type: integer
+                  prioridad:
+                    type: integer
+                  precio:
+                    type: float
+                  divisa:
+                    type: string
+                  mensaje:
+                    type: string
+        '404':
+          description: Petición para obtener precio del producto en una fecha concreta errónea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  product_id:
+                    type: integer
+                  marca:
+                    type: integer
+                  fecha_consultada:
+                    type: string
+                    format: date-time
+                  fecha_inicio_campania:
+                    type: string
+                    format: date-time
+                  fecha_fin_campania:
+                    type: string
+                    format: date-time
+                  orden_precio:
+                    type: integer
+                  prioridad:
+                    type: integer
+                  precio:
+                    type: float
+                  divisa:
+                    type: string
+                  mensaje:
+                    type: string

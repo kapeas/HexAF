@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  infra:
+    build:
+      context: ./infra-adapters/.
+      dockerfile: Dockerfile
+    image: adapter:latest
+    
+    ports:
+      - "8080:8080"
+    links:
+      - app
+    depends_on:
+      app:
+        condition: service_healthy
+
+  app:
+    build:
+      context: ./application/.
+      dockerfile: Dockerfile
+    image: application:latest
+    ports:
+      - "8081:8081"
+    links:
+      - domain
+
+    depends_on:
+      domain:
+        condition: service_healthy
+
+
+  domain:
+    build:
+      context: ./domain/.
+      dockerfile: Dockerfile
+    image: domain:latest
+    ports:
+      - "8082:8082"
