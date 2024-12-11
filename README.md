@@ -1,8 +1,6 @@
 [//]: # (- METADATOS: //TODO: Añadir más elegantemente   )
 - Autor: Francisco Luis Serrano Teruel
 - Proyecto: proceso GFTInditex
-- Licencia: Privado. Se autoriza el uso de todo el proyecto a GFT y a Inditex, con motivo de las pruebas. No compartir ni publicar. Gracias.
-
 
 # Características de la solución:
 * Java 23
@@ -14,7 +12,7 @@
 
 # Pruebas incluidas en la solución
 * Test unitarios (en tiempo de compilación, maven compile/package/spring-boot:run, etc)
-* Test e2e/"Extremo a extremo" Con postman y otros (Ver apendiceExtraPRUEBASE2E)
+* Test e2e/"Extremo a extremo" Con postman. (Colección includida en repo, 12 peticiones 38 tests)
 * Swagger UI funcionando para las tres APIs de servicio (domain, application, adapter)
 * Inicialización de datos H2 correcta (Se puede probar la consola si se arranca domain independientemente y se accede por localhost:8082/h2/console usuario sa, contraseña en blanco)
 * CI-pipeline-fase1: Cada vez que se hace un push, se verica que el código compila y construye los artefactos necesarios con maven (Github Actions)
@@ -49,8 +47,9 @@ docker compose up --build
 ```
 
 ### Ejecución de las pruebas E2E con Postman:
-Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
-Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos.
+- Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
+- Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos. Todos OK.
+- (Insertar capturas resultados.)
 
 ### Video completo del proceso de descarga y puesta en marcha
 
