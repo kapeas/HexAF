@@ -81,11 +81,5 @@ Para eliminar código/ficheros generados automáticamente desde maven (Clases RE
 mvn clean
 ```
 
-
-
 ### Otros comandos.
 For further reference, please consider the following sections:
-
-# Créditos
-* Todos los involucrados en el proceso y mi candidatura
-* Toda la comunidad open source, Stack Overflow, Docker hub, Git Hub docs. Sin todo el conocimiento compartido, el resultado no sería este, y no me sentiría tan orgulloso del mismo.
