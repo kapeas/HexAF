@@ -48,6 +48,9 @@ mvn clean package
 docker compose up --build
 ```
 
+### Ejecución de las pruebas E2E con Postman:
+Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
+Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos.
 
 ### Video completo del proceso de descarga y puesta en marcha
 
