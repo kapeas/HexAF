@@ -3,23 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!--	<parent>-->
-<!--		<groupId>org.springframework.boot</groupId>-->
-<!--		<artifactId>spring-boot-starter-parent</artifactId>-->
-<!--		<version>3.4.0</version>-->
-<!--		<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-<!--	</parent>-->
-
-<!--	<groupId>com.gftinditex.flst</groupId>-->
-<!--	<artifactId>root</artifactId>-->
-<!--	<version>0.0.1-SNAPSHOT</version>-->
-<!--	<name>rootartifact</name>-->
-<!--	<description>Root project for inditex test process</description>-->
-
-
 	<parent>
-		<artifactId>root</artifactId>
-		<groupId>com.gftinditex.flst</groupId>
+		<artifactId>root-hexAF</artifactId>
+		<groupId>es.cloudnatives.flst</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -43,7 +29,7 @@
 	</scm>
 	<properties>
 		<java.version>23</java.version>
-		<start-class>com.gftinditex.process.DemoApplication</start-class>
+		<start-class>es.cloudnatives.flst.hexAF.DemoApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -123,11 +109,11 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/gftinditexapi.yaml</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/flst-cloudnatives-domain-oas3-api.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<output>${project.build.directory}/generated-sources/openapi</output>
-							<apiPackage>com.gftinditex.api</apiPackage>
-							<modelPackage>com.gftinditex.model</modelPackage>
+							<apiPackage>es.cloudnatives.generated.domain.api</apiPackage>
+							<modelPackage>es.cloudnatives.generated.domain.model</modelPackage>
 							<configOptions>
 								<library>spring-boot</library>
 							</configOptions>

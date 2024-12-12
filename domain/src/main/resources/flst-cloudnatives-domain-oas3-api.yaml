@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: FLST Domain API
+  description: API to retreive products prices by date, productId, and brand.
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: Get product Price at a given time
+      description: Returns item price at given time from database according to given params.
+      parameters:
+        - name: dateTime
+          in: query
+          description: DateTime Sting with YYYY-MM-DDTHH:mm:ssZ format
+          schema:
+            type: string
+            format: date-time
+        - name: productId
+          in: query
+          description: Requested productId.
+          schema:
+            type: integer
+        - name: brand
+          in: query
+          description: Brand id.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Precio del producto en una fecha concreta devuelto correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: integer
+                  brand:
+                    type: integer
+                  requested_date:
+                    type: string
+                    format: date-time
+                  campaign_start_date:
+                    type: string
+                    format: date-time
+                  campaign_end_date:
+                    type: string
+                    format: date-time
+                  price_list_order:
+                    type: integer
+                  priority:
+                    type: integer
+                  price:
+                    type: float
+                  currency:
+                    type: string
+                  backend_message:
+                    type: string
+        '400':
+          description: Petición para obtener precio del producto en una fecha concreta errónea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: integer
+                  brand:
+                    type: integer
+                  requested_date:
+                    type: string
+                    format: date-time
+                  campaign_start_date:
+                    type: string
+                    format: date-time
+                  campaign_end_date:
+                    type: string
+                    format: date-time
+                  price_list_order:
+                    type: integer
+                  priority:
+                    type: integer
+                  price:
+                    type: float
+                  currency:
+                    type: string
+                  backend_message:
+                    type: string
+        '404':
+          description: Petición para obtener precio del producto en una fecha concreta errónea
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: integer
+                  brand:
+                    type: integer
+                  requested_date:
+                    type: string
+                    format: date-time
+                  campaign_start_date:
+                    type: string
+                    format: date-time
+                  campaign_end_date:
+                    type: string
+                    format: date-time
+                  price_list_order:
+                    type: integer
+                  priority:
+                    type: integer
+                  price:
+                    type: float
+                  currency:
+                    type: string
+                  backend_message:
+                    type: string

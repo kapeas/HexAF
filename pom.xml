@@ -17,18 +17,18 @@
 		<java.version>23</java.version>
 	</properties>
 	
-	<!-- módulos -->
+	<!-- modules (each module represents an Hexagonal Arquitecture layer. infra depends on applicion, which depends on domain) -->
 	<modules>
-		<module>infra-adapters</module>
 		<module>domain</module>
 		<module>application</module>
+		<module>infra-adapters</module>
 	</modules>
 		
-	<groupId>com.gftinditex.flst</groupId>
-	<artifactId>root</artifactId>
+	<groupId>es.cloudnatives.flst</groupId>
+	<artifactId>root-hexAF</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rootartifact</name>
-	<description>Root project for inditex test process</description>
+	<name>FLST HexAF root</name>
+	<description>Root project for flst hexAF</description>
 	
 	<url/>
 	<licenses>
@@ -47,7 +47,7 @@
 	
 	
 	<dependencies>
-		<!-- Dependencias comunes a los 3 módulos . //TODO añadir el resto y limpiar en los módulos -->
+		<!--  //TODO add rest of the common dependencies in parent, then remove from moudles -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

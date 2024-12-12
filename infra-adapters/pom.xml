@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>root</artifactId>
-		<groupId>com.gftinditex.flst</groupId>
+		<artifactId>root-hexAF</artifactId>
+		<groupId>es.cloudnatives.flst</groupId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -28,7 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>23</java.version>
-		<start-class>com.gftinditex.process.DemoApplication</start-class>
+		<start-class>es.cloudnatives.flst.hexAF.DemoApplication</start-class>
 
 	</properties>
 	<dependencies>
