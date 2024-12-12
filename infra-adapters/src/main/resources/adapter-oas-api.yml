@@ -33,28 +33,28 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string
         '400':
           description: Petición para obtener precio del producto en una fecha concreta errónea
@@ -63,28 +63,28 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string
         '404':
           description: Petición para obtener precio del producto en una fecha concreta errónea
@@ -93,26 +93,26 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string

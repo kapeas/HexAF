@@ -7,22 +7,21 @@
 [![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
 
 # Características de la solución:
+* API First.
+* OAS3
 * Java 23
 * Docker + compose
-* OAS3
-* API First.
-* El código de las interfaces para consumir y servir las API, se genera automáticamente desde la definición OAS3 de cada uno de los microservicios/módulos.
-* Personalización de los comportamientos de los clientes y servicios generados (implementando interfaces generadas) (Se puede usar el comportamiento por defecto o se puede personalizar, cada módulo. Personalizar permite añadir lógica adicional requerida por el negocio. En el controlador que implemente dicha interfaz, añadir la lógica personalizada)
+* El código de las interfaces a implementar para consumir y servir las API, se genera automáticamente desde la definición OAS3 de cada uno de los microservicios/módulos. (Se puede usar el comportamiento por defecto o se puede personalizar, cada módulo. Personalizar permite añadir lógica adicional requerida por el negocio. En el controlador que implemente dicha interfaz, añadir la lógica personalizada)
 
 # Pruebas incluidas en la solución
-* Test unitarios (en tiempo de compilación, maven compile/package/spring-boot:run, etc)
+* Test unitarios (PENDING. few self code to test, but still... we can test the language itself, np)
+* Integration tests (PENDING. Redundant with e2e tests but still...)
 * Test e2e/"Extremo a extremo" Con postman. (Colección includida en repo, 12 peticiones 38 tests)
 * Swagger UI funcionando para las tres APIs de servicio (domain, application, adapter)
 * Inicialización de datos H2 correcta (Se puede probar la consola si se arranca domain independientemente y se accede por localhost:8082/h2/console usuario sa, contraseña en blanco)
 * CI-pipeline-fase1: Cada vez que se hace un push, se verica que el código compila y construye los artefactos necesarios con maven (Github Actions)
 * CI-pipeline-fase2: Si la ejecución de maven (CI-pipeline-fase1) es correcta, se generan las imágenes de docker para cada uno de los módulos/microservicios  (Github Actions)
-* CI-pipeline-fase3: Cuando la fase 2 (CI-pipeline-fase2) se haya completado, se comprueba que el fichero docker-compose.yml tenga una sintaxis correcta, así como que todos los servicios incluidos en él levanten correctamente un contenedor de Docker  (Github Actions)
-* (por comodidad en desarrollo y tests) Endpoint de pruebas para obtener un listado json de todos registros en la base de datos h2, con todos sus campos. Utilizar Swagger UI de domain, invocar el showAll desde UI o hacer un get a localhost:8082/showAll  (Pendiente URL correcta en Readme para el GET) 
+* CI-pipeline-fase3: Cuando la fase 2 (CI-pipeline-fase2) se haya completado, se comprueba que el fichero docker-compose.yml tenga una sintaxis correcta, así como que todos los servicios incluidos en él levanten correctamente un contenedor de Docker  (Github Actions) 
 
 ## Swagger UI. Accesso a todas las APIs
 - [Adapter](http://localhost:8080/swagger-ui/index.html) http://localhost:8080/swagger-ui/index.html

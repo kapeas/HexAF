@@ -9,20 +9,20 @@ paths:
       summary: Obtener productos
       description: Devuelve un json con el precio del producto solicitado en la fecha indicada (según los parámetros proporcionados).
       parameters:
-        - name: fecha
+        - name: dateTime
           in: query
-          description: Fecha en formato YYYY-MM-DDTHH:mm:ssZ
+          description: DateTime Sting with YYYY-MM-DDTHH:mm:ssZ format
           schema:
             type: string
             format: date-time
-        - name: articulo
+        - name: productId
           in: query
-          description: ID del artículo.
+          description: Requested productId.
           schema:
             type: integer
-        - name: marca
+        - name: brand
           in: query
-          description: ID de la marca.
+          description: Brand id.
           schema:
             type: integer
       responses:
@@ -33,28 +33,28 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string
         '400':
           description: Petición para obtener precio del producto en una fecha concreta errónea
@@ -63,28 +63,28 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string
         '404':
           description: Petición para obtener precio del producto en una fecha concreta errónea
@@ -93,26 +93,26 @@ paths:
               schema:
                 type: object
                 properties:
-                  product_id:
+                  productId:
                     type: integer
-                  marca:
+                  brand:
                     type: integer
-                  fecha_consultada:
+                  requested_date:
                     type: string
                     format: date-time
-                  fecha_inicio_campania:
+                  campaign_start_date:
                     type: string
                     format: date-time
-                  fecha_fin_campania:
+                  campaign_end_date:
                     type: string
                     format: date-time
-                  orden_precio:
+                  price_list_order:
                     type: integer
-                  prioridad:
+                  priority:
                     type: integer
-                  precio:
+                  price:
                     type: float
-                  divisa:
+                  currency:
                     type: string
-                  mensaje:
+                  backend_message:
                     type: string

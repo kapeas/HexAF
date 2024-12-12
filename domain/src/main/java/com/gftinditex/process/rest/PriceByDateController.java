@@ -26,7 +26,6 @@ public class PriceByDateController implements ProductosApi {
 
     Logger logger = LoggerFactory.getLogger(ProductPriceServiceImpl.class);
 
-
     @Autowired
     private ProductPriceService service;
 
