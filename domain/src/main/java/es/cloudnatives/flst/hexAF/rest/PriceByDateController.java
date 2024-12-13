@@ -3,8 +3,8 @@ package es.cloudnatives.flst.hexAF.rest;
 import es.cloudnatives.flst.hexAF.model.ProductPriceAtGivenDate;
 import es.cloudnatives.flst.hexAF.services.ProductPriceService;
 import es.cloudnatives.flst.hexAF.services.impl.ProductPriceServiceImpl;
-import es.cloudnatives.generated.domain.api.ProductsApi;
-import es.cloudnatives.generated.domain.model.ProductsGet200Response;
+import es.cloudnatives.generated.domain.api.DomainProductsApi;
+import es.cloudnatives.generated.domain.model.DomainProductsGet200Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 
 @RestController
-public class PriceByDateController implements ProductsApi {
+public class PriceByDateController implements DomainProductsApi {
 
     Logger logger = LoggerFactory.getLogger(ProductPriceServiceImpl.class);
 
@@ -29,33 +29,34 @@ public class PriceByDateController implements ProductsApi {
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
-        return ProductsApi.super.getRequest();
+        return DomainProductsApi.super.getRequest();
     }
 
-    @Override
-    public ResponseEntity<ProductsGet200Response> productsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
 
+    @Override
+    public ResponseEntity<DomainProductsGet200Response> domainProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
+        
         logger.info(">> domain controller");
         ProductPriceAtGivenDate productPriceAtGivenDate = new ProductPriceAtGivenDate();
 
 
         if (dateTime == null) {
             logger.error("dateTime null.");
-            ProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param dateTime is mandatory and requires the following format: (YYYY-MM-DDTHH:mm:ssZ).");
             return ResponseEntity.badRequest().body(response);
         }
 
         if (productId == null) {
             logger.error("productId null.");
-            ProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param productId is mandatory and requires the following format: (Integer number).");
             return ResponseEntity.badRequest().body(response);
         }
 
         if (brand == null) {
             logger.error("marca null");
-            ProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param brand is mandatory and requires the following format: (Integer number)");
             return ResponseEntity.badRequest().body(response);
         }
@@ -66,7 +67,7 @@ public class PriceByDateController implements ProductsApi {
             productPriceAtGivenDate = new ProductPriceAtGivenDate();
             String noRecordsFoundsErrorMsg = "No itemPriceAtGivenTime records were found with the given params.";
             logger.error(noRecordsFoundsErrorMsg);
-            ProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage(noRecordsFoundsErrorMsg);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
@@ -74,14 +75,14 @@ public class PriceByDateController implements ProductsApi {
         logger.info(productPriceAtGivenDate.getCurrency());
         logger.info(productPriceAtGivenDate.toString());
 
-        ProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+        DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
         logger.info("<< domain controller");
         return ResponseEntity.ok(response);
     }
 
 
-    private static ProductsGet200Response mapRecordToRespone(OffsetDateTime fecha, Integer articulo, Integer marca, ProductPriceAtGivenDate productPriceAtGivenDate) {
-        ProductsGet200Response response = new ProductsGet200Response();
+    private static DomainProductsGet200Response mapRecordToRespone(OffsetDateTime fecha, Integer articulo, Integer marca, ProductPriceAtGivenDate productPriceAtGivenDate) {
+        DomainProductsGet200Response response = new DomainProductsGet200Response();
         response.setRequestedDate(fecha);
         response.setBrand(marca != null ? marca : -1);
         response.setProductId(articulo != null ? articulo: -1);

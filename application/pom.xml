@@ -66,6 +66,12 @@
 			<version>0.1.0</version>
 		</dependency>
 
+		<!-- Make app module dependant on domain generated API model and packages (es.cloudnatives.generated.domain.model). Use artifact for now. //TODO: Create lighter artifact with only model packages in it-->
+		<dependency>
+			<groupId>es.cloudnatives.flst</groupId>
+			<artifactId>domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 
@@ -92,8 +98,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/application-oas-api.yml</inputSpec>
 							<generatorName>spring</generatorName>
 							<output>${project.build.directory}/generated-sources/openapi</output>
-							<apiPackage>com.gftinditex.adapterserver.api</apiPackage>
-							<modelPackage>com.gftinditex.adapterserver.model</modelPackage>
+							<apiPackage>es.cloudnatives.flst.generated.application.api</apiPackage>
+							<modelPackage>es.cloudnatives.flst.generated.application.model</modelPackage>
 							<configOptions>
 								<library>spring-boot</library>
 								<oas3>true</oas3>
@@ -103,6 +109,8 @@
 							</configOptions>
 						</configuration>
 					</execution>
+
+
 
 					<execution>
 						<id>generate-domain-client-code</id>
@@ -128,10 +136,9 @@
 							<skipValidateSpec>true</skipValidateSpec>
 							<generateSupportingFiles>true</generateSupportingFiles>
 							<output>${project.build.directory}/generated-sources</output>
-							<!-- Model java package name -->
-							<modelPackage>com.gftinditex.generatedcoreclient.model</modelPackage>
-							<!-- API java package name -->
-							<apiPackage>com.gftinditex.generatedcoreclient.api</apiPackage>
+
+							<apiPackage>es.cloudnatives.flst.generated.domain.api</apiPackage>
+							<modelPackage>es.cloudnatives.flst.generated.domain.model</modelPackage>
 
 							<!-- Template to override some default generation template for the webclient -->
 							<templateDirectory>
@@ -165,6 +172,7 @@
 							</configOptions>
 						</configuration>
 					</execution>
+
 				</executions>
 			</plugin>
 		</plugins>

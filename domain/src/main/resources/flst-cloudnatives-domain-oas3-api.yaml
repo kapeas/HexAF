@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
   title: FLST Domain API
-  description: API to retreive products prices by date, productId, and brand.
+  description: DOMAIN API to retreive products prices by date, productId, and brand.
   version: 1.0.0
 paths:
-  /products:
+  /domain-products:
     get:
       summary: Get product Price at a given time
       description: Returns item price at given time from database according to given params.
@@ -27,7 +27,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: Precio del producto en una fecha concreta devuelto correctamente
+          description: Item price and details from requested product at a given time (200)
           content:
             application/json:
               schema:
@@ -57,7 +57,7 @@ paths:
                   backend_message:
                     type: string
         '400':
-          description: Petición para obtener precio del producto en una fecha concreta errónea
+          description: Item price and details from requested product at a given time (400)
           content:
             application/json:
               schema:
@@ -87,7 +87,7 @@ paths:
                   backend_message:
                     type: string
         '404':
-          description: Petición para obtener precio del producto en una fecha concreta errónea
+          description: Item price and details from requested product at a given time (404)
           content:
             application/json:
               schema:

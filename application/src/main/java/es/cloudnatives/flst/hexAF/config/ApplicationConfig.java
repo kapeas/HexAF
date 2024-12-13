@@ -1,19 +1,17 @@
 package es.cloudnatives.flst.hexAF.config;
 
-import com.gftinditex.generatedcoreclient.ApiClient;
-import com.gftinditex.generatedcoreclient.api.DefaultApi;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class ApplicationConfig {
 
-    @Bean(name="domainApiClientBean")
-    public DefaultApi apiClient() {
-        return new DefaultApi(
-                new ApiClient().setHost("domain").setPort(8082)
-        );
-    }
+    //Disabled. Not implementing client from oas3 spec. Using domain generated artifact instead.
+    //TODO: Remove config class if not needed for demo. Useless now.
+//
+//    @Bean(name="domainApiClientBean")
+//    public DefaultApi apiClient() {
+//        return new DefaultApi(
+//                new ApiClient().setHost("domain").setPort(8082)
+//        );
+//    }
 }
