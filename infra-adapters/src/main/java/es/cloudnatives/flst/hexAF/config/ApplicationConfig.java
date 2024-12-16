@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfig {
 
-    @Bean(name="domainApiClientBean")
+    @Bean(name="applicationApiClientBean")
     public DefaultApi apiClient() {
         return new DefaultApi(
                 new ApiClient().setHost("app").setPort(8081)

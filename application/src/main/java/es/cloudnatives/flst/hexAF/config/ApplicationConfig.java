@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfig {
 
-    //TODO: Remove config class if not needed for demo. Useless now.
-
     @Bean(name="domainApiClientBean")
     public DefaultApi apiClient() {
         return new DefaultApi(

@@ -1,9 +1,10 @@
 package es.cloudnatives.flst.hexAF.rest;
 
-import com.gftinditex.adapterserver.api.ProductosApi;
-import com.gftinditex.adapterserver.model.ProductosGet200Response;
+import com.gftinditex.adapterserver.api.AdapterProductsApi;
+import com.gftinditex.adapterserver.model.AdapterProductsGet200Response;
 import com.gftinditex.generatedadapterclient.ApiException;
 import com.gftinditex.generatedadapterclient.api.DefaultApi;
+import com.gftinditex.generatedadapterclient.model.ApplicationProductsGet200Response;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
@@ -19,33 +20,31 @@ import java.util.Optional;
 
 
 @RestController
-public class PriceByDateController implements ProductosApi {
+public class PriceByDateController implements AdapterProductsApi {
 
     Logger logger = LoggerFactory.getLogger(PriceByDateController.class);
     @Autowired
     private DefaultApi api;
 
     @Override
-    public ResponseEntity<ProductosGet200Response> productosGet(OffsetDateTime fecha, Integer articulo, Integer marca) {
-        logger.info(">> Adapter PriceByDateController productosGet %s %s %s", fecha, articulo, marca);
+    public ResponseEntity<AdapterProductsGet200Response> adapterProductsGet(OffsetDateTime dateTime, Integer product, Integer brand) {
 
-        ProductosGet200Response response = new ProductosGet200Response(); //respuesta 200 DEL MODELO DEL SERVIDOR
-        com.gftinditex.generatedadapterclient.model.ProductosGet200Response clientResponse = new com.gftinditex.generatedadapterclient.model.ProductosGet200Response(); //respuesta 200 DEL MODELO DEL CLIENTE (api que consume al dominio)
+        logger.info(">> Adapter PriceByDateController productsGet %s %s %s", dateTime, product, brand);
+
+        AdapterProductsGet200Response response = new AdapterProductsGet200Response(); //server 200 response
+        ApplicationProductsGet200Response clientResponse = new ApplicationProductsGet200Response(); //application client response 200
 
         try {
-            clientResponse = api.productosGet(fecha, articulo, marca);
+            clientResponse = api.applicationProductsGet(dateTime, product, brand);
         } catch (ApiException e) {
-            //Establecer los parámetros recibidos.
-            clientResponse.setProductId(articulo);
-            clientResponse.setFechaConsultada(fecha);
-            clientResponse.setMarca(marca);
-
-            //TODO: Esta es la gestión correcta. modificar modelos de cada uno de los status code y verificar.
+            clientResponse.setProductId(product);
+            clientResponse.setRequestedDate(dateTime);
+            clientResponse.setBrand(brand);
             int code = e.getCode();
 
             try {
                 JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
-                clientResponse.setMensaje(errorResponseJson.object().get("mensaje").toString());
+                clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -64,26 +63,26 @@ public class PriceByDateController implements ProductosApi {
             };
 
         }
-        logger.info("<< Adapter PriceByDateController productosGet %s %s %s", fecha, articulo, marca);
+        logger.info("<< Adapter PriceByDateController productsGet %s %s %s", dateTime, product, brand);
         return mapClientRespToServerResp(response, clientResponse);
     }
 
-    private static ResponseEntity<ProductosGet200Response> mapClientRespToServerResp(ProductosGet200Response response, com.gftinditex.generatedadapterclient.model.ProductosGet200Response clientResponse) {
-        response.setDivisa(clientResponse.getDivisa());
-        response.setMarca(clientResponse.getMarca());
-        response.setMensaje(clientResponse.getMensaje());
-        response.setPrecio(clientResponse.getPrecio());
-        response.setPrioridad(clientResponse.getPrioridad());
-        response.setFechaConsultada(clientResponse.getFechaConsultada());
-        response.setFechaInicioCampania(clientResponse.getFechaInicioCampania());
-        response.setFechaFinCampania(clientResponse.getFechaFinCampania());
+    private static ResponseEntity<AdapterProductsGet200Response> mapClientRespToServerResp(AdapterProductsGet200Response response, ApplicationProductsGet200Response clientResponse) {
+        response.setCurrency(clientResponse.getCurrency());
+        response.setBrand(clientResponse.getBrand());
+        response.setBackendMessage(clientResponse.getBackendMessage());
+        response.setPrice(clientResponse.getPrice());
+        response.setPriority(clientResponse.getPriority());
+        response.setRequestedDate(clientResponse.getRequestedDate());
+        response.setCampaignStartDate(clientResponse.getCampaignStartDate());
+        response.setCampaignEndDate(clientResponse.getCampaignEndDate());
         response.setProductId(clientResponse.getProductId());
-        response.setOrdenPrecio(clientResponse.getOrdenPrecio());
+        response.setPriceListOrder(clientResponse.getPriceListOrder());
         return ResponseEntity.ok(response);
     }
 
     @Override
     public Optional<NativeWebRequest> getRequest() {
-        return ProductosApi.super.getRequest();
+        return AdapterProductsApi.super.getRequest();
     }
 }

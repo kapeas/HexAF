@@ -53,7 +53,14 @@ public class PriceByDateController implements ApplicationProductsApi {
 
             try {
                 JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
-                clientResponse.setBackendMessage(errorResponseJson.object().get("mensaje").toString());
+                errorResponseJson.object().keySet().forEach(k -> {
+                    try {
+                        logger.error("Current key: " + k + " current value: " + errorResponseJson.object().get(k).toString());
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+                clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
             } catch (ParseException ex) {
                 throw new RuntimeException(ex);
             }
@@ -85,17 +92,8 @@ public class PriceByDateController implements ApplicationProductsApi {
         response.setPriceListOrder(clientResponse.getPriceListOrder() != null ? clientResponse.getPriceListOrder() : null);
     }
 
-//    public Optional<NativeWebRequest> getRequest() {
-//        return DomainProductsApi.super.getRequest();
-//    }
-
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return ApplicationProductsApi.super.getRequest();
     }
-
-//    @Override
-//    public ResponseEntity<ApplicationProductsGet200Response> applicationProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
-//        return ApplicationProductsApi.super.applicationProductsGet(dateTime, productId, brand);
-//    }
 }

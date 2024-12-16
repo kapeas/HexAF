@@ -25,6 +25,7 @@ paths:
           description: Brand id.
           schema:
             type: integer
+      operationId: getProductPriceDomainClient
       responses:
         '200':
           description: Item price and details from requested product at a given time (200)
