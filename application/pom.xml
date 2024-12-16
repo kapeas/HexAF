@@ -136,9 +136,8 @@
 							<skipValidateSpec>true</skipValidateSpec>
 							<generateSupportingFiles>true</generateSupportingFiles>
 							<output>${project.build.directory}/generated-sources</output>
-
-							<apiPackage>es.cloudnatives.flst.generated.domain.api</apiPackage>
-							<modelPackage>es.cloudnatives.flst.generated.domain.model</modelPackage>
+							<apiPackage>es.cloudnatives.generated.domain.api</apiPackage>
+							<modelPackage>es.cloudnatives.generated.domain.model</modelPackage>
 
 							<!-- Template to override some default generation template for the webclient -->
 							<templateDirectory>

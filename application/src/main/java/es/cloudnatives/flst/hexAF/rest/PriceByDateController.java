@@ -1,10 +1,10 @@
 package es.cloudnatives.flst.hexAF.rest;
 
-import es.cloudnatives.flst.generated.application.model.ProductsGet200Response;
-import es.cloudnatives.flst.generated.domain.ApiException;
-import es.cloudnatives.flst.generated.domain.api.DefaultApi;
-import es.cloudnatives.flst.generated.domain.model.ProductosGet200Response;
-import es.cloudnatives.generated.domain.api.ProductsApi;
+import es.cloudnatives.flst.generated.application.api.ApplicationProductsApi;
+import es.cloudnatives.flst.generated.application.model.ApplicationProductsGet200Response;
+import es.cloudnatives.generated.domain.ApiException;
+import es.cloudnatives.generated.domain.api.DefaultApi;
+import es.cloudnatives.generated.domain.model.DomainProductsGet200Response;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
@@ -20,34 +20,34 @@ import java.util.Optional;
 
 
 @RestController
-public class PriceByDateController implements ProductsApi {
+public class PriceByDateController implements ApplicationProductsApi {
 
     Logger logger = LoggerFactory.getLogger(PriceByDateController.class);
-
 
     @Autowired
     private DefaultApi api;
 
 
-    public ResponseEntity<ProductsGet200Response> productosGet(OffsetDateTime fecha, Integer articulo, Integer marca) {
+    @Override
+    public ResponseEntity<ApplicationProductsGet200Response> applicationProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
 
         logger.info(">> Application PriceByDateController productosGet");
 
-        ProductsGet200Response response = new ProductsGet200Response();
+        ApplicationProductsGet200Response response = new ApplicationProductsGet200Response();
 
 
-        ProductsGet200Response clientResponse = new ProductsGet200Response();
+        DomainProductsGet200Response clientResponse = new DomainProductsGet200Response();
         try {
-            clientResponse = api.productosGet(fecha, articulo, marca);
+            clientResponse = api.domainProductsGet(dateTime, productId, brand);
             logger.info(clientResponse.toString());
             mapClientResptToServerResp(response, clientResponse);
             return ResponseEntity.ok(response);
         } catch (ApiException e) {
 
             //Establecer los parámetros recibidos.
-            clientResponse.setProductId(articulo);
-            clientResponse.setRequestedDate(fecha);
-            clientResponse.setBrand(marca);
+            clientResponse.setProductId(productId);
+            clientResponse.setRequestedDate(dateTime);
+            clientResponse.setBrand(brand);
 
             int code = e.getCode();
 
@@ -72,7 +72,7 @@ public class PriceByDateController implements ProductsApi {
         }
     }
 
-    private static void mapClientResptToServerResp(ProductsGet200Response response, ProductsGet200Response clientResponse) {
+    private static void mapClientResptToServerResp(ApplicationProductsGet200Response response, DomainProductsGet200Response clientResponse) {
         response.setCurrency(clientResponse.getCurrency());
         response.setBrand(clientResponse.getBrand());
         response.setBackendMessage(clientResponse.getBackendMessage() != null ? clientResponse.getBackendMessage() : null);
@@ -85,8 +85,17 @@ public class PriceByDateController implements ProductsApi {
         response.setPriceListOrder(clientResponse.getPriceListOrder() != null ? clientResponse.getPriceListOrder() : null);
     }
 
+//    public Optional<NativeWebRequest> getRequest() {
+//        return DomainProductsApi.super.getRequest();
+//    }
+
     @Override
     public Optional<NativeWebRequest> getRequest() {
-        return ProductsApi.super.getRequest();
+        return ApplicationProductsApi.super.getRequest();
     }
+
+//    @Override
+//    public ResponseEntity<ApplicationProductsGet200Response> applicationProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
+//        return ApplicationProductsApi.super.applicationProductsGet(dateTime, productId, brand);
+//    }
 }
