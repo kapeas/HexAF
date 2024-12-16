@@ -1,10 +1,10 @@
 package es.cloudnatives.flst.hexAF.rest;
 
 import com.gftinditex.adapterserver.api.AdapterProductsApi;
-import com.gftinditex.adapterserver.model.AdapterProductsGet200Response;
+import com.gftinditex.adapterserver.model.GetProductPriceAdapterServer200Response;
 import com.gftinditex.generatedadapterclient.ApiException;
 import com.gftinditex.generatedadapterclient.api.DefaultApi;
-import com.gftinditex.generatedadapterclient.model.ApplicationProductsGet200Response;
+import com.gftinditex.generatedadapterclient.model.GetProductPriceApplicationClient200Response;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
@@ -27,17 +27,17 @@ public class PriceByDateController implements AdapterProductsApi {
     private DefaultApi api;
 
     @Override
-    public ResponseEntity<AdapterProductsGet200Response> adapterProductsGet(OffsetDateTime dateTime, Integer product, Integer brand) {
+    public ResponseEntity<GetProductPriceAdapterServer200Response> getProductPriceAdapterServer(OffsetDateTime dateTime, Integer productId, Integer brand) {
 
-        logger.info(">> Adapter PriceByDateController productsGet %s %s %s", dateTime, product, brand);
+        logger.info(">> Adapter PriceByDateController productsGet %s %s %s", dateTime, productId, brand);
 
-        AdapterProductsGet200Response response = new AdapterProductsGet200Response(); //server 200 response
-        ApplicationProductsGet200Response clientResponse = new ApplicationProductsGet200Response(); //application client response 200
+        GetProductPriceAdapterServer200Response response = new GetProductPriceAdapterServer200Response(); //server 200 response
+        GetProductPriceApplicationClient200Response clientResponse = new GetProductPriceApplicationClient200Response(); //application client response 200
 
         try {
-            clientResponse = api.applicationProductsGet(dateTime, product, brand);
+            clientResponse = api.getProductPriceApplicationClient(dateTime, productId, brand);
         } catch (ApiException e) {
-            clientResponse.setProductId(product);
+            clientResponse.setProductId(productId);
             clientResponse.setRequestedDate(dateTime);
             clientResponse.setBrand(brand);
             int code = e.getCode();
@@ -63,11 +63,11 @@ public class PriceByDateController implements AdapterProductsApi {
             };
 
         }
-        logger.info("<< Adapter PriceByDateController productsGet %s %s %s", dateTime, product, brand);
+        logger.info("<< Adapter PriceByDateController productsGet %s %s %s", dateTime, productId, brand);
         return mapClientRespToServerResp(response, clientResponse);
     }
 
-    private static ResponseEntity<AdapterProductsGet200Response> mapClientRespToServerResp(AdapterProductsGet200Response response, ApplicationProductsGet200Response clientResponse) {
+    private static ResponseEntity<GetProductPriceAdapterServer200Response> mapClientRespToServerResp(GetProductPriceAdapterServer200Response response, GetProductPriceApplicationClient200Response clientResponse) {
         response.setCurrency(clientResponse.getCurrency());
         response.setBrand(clientResponse.getBrand());
         response.setBackendMessage(clientResponse.getBackendMessage());

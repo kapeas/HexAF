@@ -66,13 +66,6 @@
 			<version>0.1.0</version>
 		</dependency>
 
-		<!-- Make app module dependant on domain generated API model and packages (es.cloudnatives.generated.domain.model). Use artifact for now. //TODO: Create lighter artifact with only model packages in it-->
-		<dependency>
-			<groupId>es.cloudnatives.flst</groupId>
-			<artifactId>domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>

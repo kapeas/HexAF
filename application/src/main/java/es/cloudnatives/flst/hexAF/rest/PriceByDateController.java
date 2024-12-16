@@ -1,10 +1,10 @@
 package es.cloudnatives.flst.hexAF.rest;
 
 import es.cloudnatives.flst.generated.application.api.ApplicationProductsApi;
-import es.cloudnatives.flst.generated.application.model.ApplicationProductsGet200Response;
+import es.cloudnatives.flst.generated.application.model.GetProductPriceApplicationServer200Response;
 import es.cloudnatives.generated.domain.ApiException;
 import es.cloudnatives.generated.domain.api.DefaultApi;
-import es.cloudnatives.generated.domain.model.DomainProductsGet200Response;
+import es.cloudnatives.generated.domain.model.GetProductPriceDomainClient200Response;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;
@@ -29,16 +29,16 @@ public class PriceByDateController implements ApplicationProductsApi {
 
 
     @Override
-    public ResponseEntity<ApplicationProductsGet200Response> applicationProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
+    public ResponseEntity<GetProductPriceApplicationServer200Response> getProductPriceApplicationServer(OffsetDateTime dateTime, Integer productId, Integer brand) {
 
         logger.info(">> Application PriceByDateController productosGet");
 
-        ApplicationProductsGet200Response response = new ApplicationProductsGet200Response();
+        GetProductPriceApplicationServer200Response response = new GetProductPriceApplicationServer200Response();
 
 
-        DomainProductsGet200Response clientResponse = new DomainProductsGet200Response();
+        GetProductPriceDomainClient200Response clientResponse = new GetProductPriceDomainClient200Response();
         try {
-            clientResponse = api.domainProductsGet(dateTime, productId, brand);
+            clientResponse = api.getProductPriceDomainClient(dateTime, productId, brand);
             logger.info(clientResponse.toString());
             mapClientResptToServerResp(response, clientResponse);
             return ResponseEntity.ok(response);
@@ -51,17 +51,24 @@ public class PriceByDateController implements ApplicationProductsApi {
 
             int code = e.getCode();
 
+            JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
             try {
-                JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
-                errorResponseJson.object().keySet().forEach(k -> {
-                    try {
-                        logger.error("Current key: " + k + " current value: " + errorResponseJson.object().get(k).toString());
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
-                clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
+                if(errorResponseJson.object() != null && errorResponseJson.object().get("backend_message") != null) {
+                    clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
+                } else {
+                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
+                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
+                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
+                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
+                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
+                }
+
             } catch (ParseException ex) {
+
+                logger.error("Parse Exception: " + ex.getMessage());
+                logger.error("Parse Exception: " + ex.getCause());
+                logger.error("Parse Exception: " + ex.getClass());
+                e.printStackTrace();
                 throw new RuntimeException(ex);
             }
 
@@ -79,7 +86,7 @@ public class PriceByDateController implements ApplicationProductsApi {
         }
     }
 
-    private static void mapClientResptToServerResp(ApplicationProductsGet200Response response, DomainProductsGet200Response clientResponse) {
+    private static void mapClientResptToServerResp(GetProductPriceApplicationServer200Response response, GetProductPriceDomainClient200Response clientResponse) {
         response.setCurrency(clientResponse.getCurrency());
         response.setBrand(clientResponse.getBrand());
         response.setBackendMessage(clientResponse.getBackendMessage() != null ? clientResponse.getBackendMessage() : null);
