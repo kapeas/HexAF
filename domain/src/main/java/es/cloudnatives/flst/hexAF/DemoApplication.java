@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.gftinditex.process"})
+@ComponentScan(basePackages = {"es.cloudnatives.flst.hexAF"})
 public class DemoApplication {
 
 	public static void main(String[] args) {

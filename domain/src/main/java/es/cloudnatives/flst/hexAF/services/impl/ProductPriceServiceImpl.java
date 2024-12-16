@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +37,4 @@ public class ProductPriceServiceImpl implements ProductPriceService {
         logger.info("<< getItemPriceByDate");
         return productPriceAtGivenDateResp;
     }
-
-    //TODO: Implement show all if necessary or useful.
 }

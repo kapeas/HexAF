@@ -4,7 +4,8 @@ import es.cloudnatives.flst.hexAF.model.ProductPriceAtGivenDate;
 import es.cloudnatives.flst.hexAF.services.ProductPriceService;
 import es.cloudnatives.flst.hexAF.services.impl.ProductPriceServiceImpl;
 import es.cloudnatives.generated.domain.api.DomainProductsApi;
-import es.cloudnatives.generated.domain.model.DomainProductsGet200Response;
+//import es.cloudnatives.generated.domain.model.DomainProductsGet200Response;
+import es.cloudnatives.generated.domain.model.GetProductPrice200Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,29 +35,28 @@ public class PriceByDateController implements DomainProductsApi {
 
 
     @Override
-    public ResponseEntity<DomainProductsGet200Response> domainProductsGet(OffsetDateTime dateTime, Integer productId, Integer brand) {
-        
+    public ResponseEntity<GetProductPrice200Response> getProductPrice(OffsetDateTime dateTime, Integer productId, Integer brand) {
         logger.info(">> domain controller");
         ProductPriceAtGivenDate productPriceAtGivenDate = new ProductPriceAtGivenDate();
 
 
         if (dateTime == null) {
             logger.error("dateTime null.");
-            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            GetProductPrice200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param dateTime is mandatory and requires the following format: (YYYY-MM-DDTHH:mm:ssZ).");
             return ResponseEntity.badRequest().body(response);
         }
 
         if (productId == null) {
             logger.error("productId null.");
-            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            GetProductPrice200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param productId is mandatory and requires the following format: (Integer number).");
             return ResponseEntity.badRequest().body(response);
         }
 
         if (brand == null) {
             logger.error("marca null");
-            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            GetProductPrice200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage("Param brand is mandatory and requires the following format: (Integer number)");
             return ResponseEntity.badRequest().body(response);
         }
@@ -67,7 +67,7 @@ public class PriceByDateController implements DomainProductsApi {
             productPriceAtGivenDate = new ProductPriceAtGivenDate();
             String noRecordsFoundsErrorMsg = "No itemPriceAtGivenTime records were found with the given params.";
             logger.error(noRecordsFoundsErrorMsg);
-            DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+            GetProductPrice200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
             response.setBackendMessage(noRecordsFoundsErrorMsg);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
@@ -75,14 +75,14 @@ public class PriceByDateController implements DomainProductsApi {
         logger.info(productPriceAtGivenDate.getCurrency());
         logger.info(productPriceAtGivenDate.toString());
 
-        DomainProductsGet200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
+        GetProductPrice200Response response = mapRecordToRespone(dateTime, productId, brand, productPriceAtGivenDate);
         logger.info("<< domain controller");
         return ResponseEntity.ok(response);
     }
 
 
-    private static DomainProductsGet200Response mapRecordToRespone(OffsetDateTime fecha, Integer articulo, Integer marca, ProductPriceAtGivenDate productPriceAtGivenDate) {
-        DomainProductsGet200Response response = new DomainProductsGet200Response();
+    private static GetProductPrice200Response mapRecordToRespone(OffsetDateTime fecha, Integer articulo, Integer marca, ProductPriceAtGivenDate productPriceAtGivenDate) {
+        GetProductPrice200Response response = new GetProductPrice200Response();
         response.setRequestedDate(fecha);
         response.setBrand(marca != null ? marca : -1);
         response.setProductId(articulo != null ? articulo: -1);
