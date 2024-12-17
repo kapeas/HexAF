@@ -73,17 +73,10 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-
-			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
 				<version>6.6.0</version>
 				<executions>
-
 					<execution>
 						<id>generate-spring-server-code-from-oas3spec</id>
 						<goals>
