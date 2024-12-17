@@ -71,7 +71,7 @@ public class PriceByDateController implements DomainProductsApi {
             response.setBackendMessage(noRecordsFoundsErrorMsg);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-
+        
         logger.info(productPriceAtGivenDate.getCurrency());
         logger.info(productPriceAtGivenDate.toString());
 
@@ -81,11 +81,11 @@ public class PriceByDateController implements DomainProductsApi {
     }
 
 
-    private static GetProductPrice200Response mapRecordToRespone(OffsetDateTime fecha, Integer articulo, Integer marca, ProductPriceAtGivenDate productPriceAtGivenDate) {
+    private static GetProductPrice200Response mapRecordToRespone(OffsetDateTime dateTime, Integer productId, Integer brand, ProductPriceAtGivenDate productPriceAtGivenDate) {
         GetProductPrice200Response response = new GetProductPrice200Response();
-        response.setRequestedDate(fecha);
-        response.setBrand(marca != null ? marca : -1);
-        response.setProductId(articulo != null ? articulo: -1);
+        response.setRequestedDate(dateTime != null ? dateTime : OffsetDateTime.now());
+        response.setBrand(brand != null ? brand : -1);
+        response.setProductId(productId != null ? productId: -1);
 
         long millisSinceEpochStart = productPriceAtGivenDate.getStart() != null ? productPriceAtGivenDate.getStart().getTime() : 0;
         long millisSinceEpochEnd = productPriceAtGivenDate.getEnd() != null ? productPriceAtGivenDate.getEnd().getTime() : 0;

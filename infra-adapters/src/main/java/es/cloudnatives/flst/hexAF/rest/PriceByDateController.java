@@ -37,34 +37,42 @@ public class PriceByDateController implements AdapterProductsApi {
         try {
             clientResponse = api.getProductPriceApplicationClient(dateTime, productId, brand);
         } catch (ApiException e) {
+            e.printStackTrace();
             clientResponse.setProductId(productId);
             clientResponse.setRequestedDate(dateTime);
             clientResponse.setBrand(brand);
-            int code = e.getCode();
-
-            try {
-                JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
-                clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
-            } catch (ParseException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            return switch (code) {
-                case 404 -> {
-                    mapClientRespToServerResp(response, clientResponse);
-                    yield ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-                }
-                case 400 -> {
-
-                    mapClientRespToServerResp(response, clientResponse);
-                    yield ResponseEntity.badRequest().body(response);
-                }
-                default -> throw new RuntimeException(e);
-            };
-
+            return processApiException(e, clientResponse, response);
         }
         logger.info("<< Adapter PriceByDateController productsGet %s %s %s", dateTime, productId, brand);
         return mapClientRespToServerResp(response, clientResponse);
+    }
+
+    private static ResponseEntity<GetProductPriceAdapterServer200Response> processApiException(ApiException e, GetProductPriceApplicationClient200Response clientResponse, GetProductPriceAdapterServer200Response response) {
+        try {
+            JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
+            clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message")!=null ?
+                    errorResponseJson.object().get("backend_message").toString() :
+                    "Could not get real message from application while consuming domain app.");
+        } catch (ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+
+
+        int code = e.getCode();
+
+
+        switch (code) {
+            case 404 -> {
+                mapClientRespToServerResp(response, clientResponse);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+            case 400 -> {
+
+                mapClientRespToServerResp(response, clientResponse);
+                return ResponseEntity.badRequest().body(response);
+            }
+            default -> throw new RuntimeException(e);
+        }
     }
 
     private static ResponseEntity<GetProductPriceAdapterServer200Response> mapClientRespToServerResp(GetProductPriceAdapterServer200Response response, GetProductPriceApplicationClient200Response clientResponse) {

@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 public class PriceByDateController implements ApplicationProductsApi {
 
-    Logger logger = LoggerFactory.getLogger(PriceByDateController.class);
+    static Logger logger = LoggerFactory.getLogger(PriceByDateController.class);
 
     @Autowired
     private DefaultApi api;
@@ -34,62 +34,58 @@ public class PriceByDateController implements ApplicationProductsApi {
         logger.info(">> Application PriceByDateController productosGet");
 
         GetProductPriceApplicationServer200Response response = new GetProductPriceApplicationServer200Response();
-
-
         GetProductPriceDomainClient200Response clientResponse = new GetProductPriceDomainClient200Response();
+
         try {
             clientResponse = api.getProductPriceDomainClient(dateTime, productId, brand);
             logger.info(clientResponse.toString());
             mapClientResptToServerResp(response, clientResponse);
             return ResponseEntity.ok(response);
         } catch (ApiException e) {
-
-            //Establecer los parámetros recibidos.
-            clientResponse.setProductId(productId);
-            clientResponse.setRequestedDate(dateTime);
-            clientResponse.setBrand(brand);
+            String responseBody = e.getResponseBody();
+            logger.error("APP!!!!Domain api exception response body: "+ responseBody);
+            logger.error("APP!!!!Domain api exception response body: "+ responseBody);
 
             int code = e.getCode();
 
-            JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
+            response.setBackendMessage("Application Pending domain msg. failing previous set backend msg line 49");
+
+            JSONParser errorResponseJson = new JSONParser(responseBody);
+            response.setProductId(productId);
+            response.setRequestedDate(dateTime);
+            response.setBrand(brand);
             try {
-                if(errorResponseJson.object() != null && errorResponseJson.object().get("backend_message") != null) {
-                    clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message").toString());
-                } else {
-                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
-                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
-                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
-                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
-                    logger.error("DEBUG THIS. BACKEND MSG IN api exception, before switch");
-                }
-
+                response.setBackendMessage(errorResponseJson.object().get("backend_message") != null ? errorResponseJson.object().get("backend_message").toString() : "empty .....fix!!!");
             } catch (ParseException ex) {
-
-                logger.error("Parse Exception: " + ex.getMessage());
-                logger.error("Parse Exception: " + ex.getCause());
-                logger.error("Parse Exception: " + ex.getClass());
-                e.printStackTrace();
-                throw new RuntimeException(ex);
+//                throw new RuntimeException(ex);
+                response.setBackendMessage("parse exception in application while consuming domain");
             }
-
-            return switch (code) {
+            mapClientResptToServerResp(response, clientResponse);
+            switch (code) {
                 case 404 -> {
-                    mapClientResptToServerResp(response, clientResponse);
-                    yield ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
                 }
                 case 400 -> {
-                    mapClientResptToServerResp(response, clientResponse);
-                    yield ResponseEntity.badRequest().body(response);
+                    return ResponseEntity.badRequest().body(response);
                 }
                 default -> throw new RuntimeException(e);
-            };
+
+            }
+
         }
     }
 
-    private static void mapClientResptToServerResp(GetProductPriceApplicationServer200Response response, GetProductPriceDomainClient200Response clientResponse) {
+    private static GetProductPriceApplicationServer200Response mapClientResptToServerResp(GetProductPriceApplicationServer200Response response, GetProductPriceDomainClient200Response clientResponse) {
         response.setCurrency(clientResponse.getCurrency());
         response.setBrand(clientResponse.getBrand());
+        logger.error(">>>>>>>>>>>>>>> Before setting backend message");
+        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
+        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
+        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
+        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
+        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
         response.setBackendMessage(clientResponse.getBackendMessage() != null ? clientResponse.getBackendMessage() : null);
+        logger.error("<<<<<<<<<<<<<<< After setting backend message");
         response.setPrice(clientResponse.getPrice());
         response.setPriority(clientResponse.getPriority());
         response.setRequestedDate(clientResponse.getRequestedDate() != null ? (clientResponse.getRequestedDate()) : null);
@@ -97,6 +93,7 @@ public class PriceByDateController implements ApplicationProductsApi {
         response.setCampaignEndDate(clientResponse.getCampaignEndDate() != null ? clientResponse.getCampaignEndDate() : null);
         response.setProductId(clientResponse.getProductId() != null ? clientResponse.getProductId() : null);
         response.setPriceListOrder(clientResponse.getPriceListOrder() != null ? clientResponse.getPriceListOrder() : null);
+        return response;
     }
 
     @Override
