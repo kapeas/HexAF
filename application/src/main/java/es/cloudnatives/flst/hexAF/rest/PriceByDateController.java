@@ -44,45 +44,20 @@ public class PriceByDateController implements ApplicationProductsApi {
             mapClientResptToServerResp(response, clientResponse);
             return ResponseEntity.ok(response);
         } catch (ApiException e) {
+
             String responseBody = e.getResponseBody();
             logger.error("APP!!!!Domain api exception response body: "+ responseBody);
-            logger.error("APP!!!!Domain api exception response body: "+ responseBody);
-            logger.error("En CATCH APIEXCEPTION. clientResponse.backend_msg: "+ clientResponse.getBackendMessage());
-
             JSONParser errorResponseJson = new JSONParser(responseBody);
-            logger.error("después del parse error response");
             response.setBackendMessage(clientResponse.getBackendMessage());
-            logger.error("después del setbackendmsg:55");
+
             try {
-
-                //show all errorResponseJsonKeys
-                logger.error("antes del  error response get object");
-
                 LinkedHashMap<String, Object> object = errorResponseJson.object();
-                logger.error("después del  error response get object");
-//                Set<String> keysInJson = object.keySet();
-//
-//                for (String k : keysInJson) {
-//                    logger.error("IN CATCH APIEX. SHOW ALL KEYS . Key: " + k + ". Value: " + errorResponseJson.object().get(k));
-//                }
-//
-                logger.error("object.get(\"backend_message\") is: " + object.get("backend_message"));
-                logger.error("object.get(\"backend_message\").toString() is: " + );
-
                 response.setBackendMessage(object.get("backend_message").toString());
                 clientResponse.setBackendMessage(object.get("backend_message").toString());
                 int code = e.getCode();
-                logger.error("antes del response.setBackendMessage(\"Appl");
-
                 response.setBackendMessage("Application Pending domain msg. failing previous set backend msg line 49");
-                logger.error("despues del response.setBackendMessage(\"Appl");
                 response.setProductId(productId);
-
-                logger.error("antes del response.setRequestedDate(\"Appl");
                 response.setRequestedDate(dateTime != null ? dateTime : OffsetDateTime.now());
-                logger.error("después del response.setRequestedDate(\"Appl");
-
-                logger.error("DENTRO DEL TRY: El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
 
                 switch (code) {
                     case 404 -> {
@@ -92,12 +67,8 @@ public class PriceByDateController implements ApplicationProductsApi {
                         return ResponseEntity.badRequest().body(mapClientResptToServerResp(response,clientResponse));
                     }
                     default -> throw new RuntimeException(e);
-
                 }
-
             } catch (ParseException ex) {
-                logger.error(e.getMessage());
-//                logger.error(e.getCause().toString()); //cause null :/
                 logger.error(e.getMessage());
                 response.setBackendMessage("parse exception in application while consuming domain");
             }
