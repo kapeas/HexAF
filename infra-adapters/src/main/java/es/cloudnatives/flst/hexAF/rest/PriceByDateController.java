@@ -1,10 +1,10 @@
 package es.cloudnatives.flst.hexAF.rest;
 
-import com.gftinditex.adapterserver.api.AdapterProductsApi;
-import com.gftinditex.adapterserver.model.GetProductPriceAdapterServer200Response;
-import com.gftinditex.generatedadapterclient.ApiException;
-import com.gftinditex.generatedadapterclient.api.DefaultApi;
-import com.gftinditex.generatedadapterclient.model.GetProductPriceApplicationClient200Response;
+import es.cloudnatives.flst.adapterserver.api.AdapterProductsApi;
+import es.cloudnatives.flst.adapterserver.model.GetProductPriceAdapterServer200Response;
+import es.cloudnatives.flst.generatedadapterclient.ApiException;
+import es.cloudnatives.flst.generatedadapterclient.api.DefaultApi;
+import es.cloudnatives.flst.generatedadapterclient.model.GetProductPriceApplicationClient200Response;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.slf4j.Logger;

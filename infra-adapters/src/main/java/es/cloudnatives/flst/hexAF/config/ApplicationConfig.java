@@ -1,8 +1,8 @@
 package es.cloudnatives.flst.hexAF.config;
 
 
-import com.gftinditex.generatedadapterclient.ApiClient;
-import com.gftinditex.generatedadapterclient.api.DefaultApi;
+import es.cloudnatives.flst.generatedadapterclient.ApiClient;
+import es.cloudnatives.flst.generatedadapterclient.api.DefaultApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

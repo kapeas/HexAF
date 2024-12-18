@@ -1,6 +1,6 @@
 [//]: # (- METADATOS: //TODO: Añadir más elegantemente   )
 - Autor: Francisco Luis Serrano Teruel
-- Proyecto: proceso GFTInditex
+- Proyecto: HexAF
 
 
 ### Video completo del proceso de descarga y puesta en marcha
@@ -34,7 +34,7 @@ Configuración de las variables de entorno:
 
 ![alt text][captura_env_vars]
 
-[captura_env_vars]: https://github.com/kapeas/gftidtx/blob/main/enviroment-vars.png?raw=true "env vars alt text"
+[captura_env_vars]: https://github.com/kapeas/HexAF/blob/main/enviroment-vars.png?raw=true "env vars alt text"
 
 * Docker Desktop ([Windows](https://docs.docker.com/desktop/setup/install/windows-install/)) o Docker Engine ([Linux/Mac](https://docs.docker.com/engine/install/)) instalado y permisos para construir imagen, arrancar un contenedor, etc.
 * OpenJDK 23.
@@ -50,7 +50,7 @@ docker compose up --build
 ```
 
 ### Ejecución de las pruebas E2E con Postman:
-- Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
+- Importamos una nueva colección postman desde el fichero: E2E-TESTS-Collection.postman_collection.json
 - Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos. Todos OK.
 - (Insertar capturas resultados.)
 

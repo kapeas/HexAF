@@ -12,7 +12,7 @@
 	<artifactId>domain</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>domain</name>
-	<description>Domain project for inditex test process</description>
+	<description>Domain project for hexaf demo</description>
 	<url/>
 
 	<licenses>

@@ -36,7 +36,7 @@ Setting up Environment Variables:
 
 ![alt text][captura_env_vars]
 
-[captura_env_vars]: https://github.com/kapeas/gftidtx/blob/main/enviroment-vars.png?raw=true "env vars alt text"
+[captura_env_vars]: https://github.com/kapeas/HexAF/blob/main/enviroment-vars.png?raw=true "env vars alt text"
 
 * Docker Desktop ([Windows](https://docs.docker.com/desktop/setup/install/windows-install/)) or Docker Engine ([Linux/Mac](https://docs.docker.com/engine/install/)) installed.
 * OpenJDK 23.
