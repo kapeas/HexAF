@@ -4,7 +4,7 @@
 
 
 ### Video completo del proceso de descarga y puesta en marcha
-[![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
+[![Cargando video placeholder](http://img.youtube.com/vi/IhbEldq94vk/1.jpg)](http://www.youtube.com/watch?v=IhbEldq94vk)
 
 # Características de la solución:
 * API First.

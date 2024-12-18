@@ -4,10 +4,10 @@
 
 
 ### Video with cloning/downloading, compiling, and E2E instructions
-[![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
+[![Loading video placeholder](http://img.youtube.com/vi/IhbEldq94vk/1.jpg)](http://www.youtube.com/watch?v=IhbEldq94vk)
 
 # Project features:
-* Hexagonal Architecture (AIMS to be...)
+* Hexagonal Architecture (AIMS to be...) (Every advice/polite critic/suggestion is greatly welcome.)
 * API First.
 * Spring boot 3.4.0
 * OAS3 docs on every served api
