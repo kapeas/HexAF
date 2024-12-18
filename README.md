@@ -1,84 +1,61 @@
 [//]: # (- METADATOS: //TODO: Añadir más elegantemente   )
-- Autor: Francisco Luis Serrano Teruel
-- Proyecto: proceso GFTInditex
+- Author: Francisco Luis Serrano Teruel (Kapeas)
+- Proyecto: HexAF
 
 
-### Video completo del proceso de descarga y puesta en marcha
+### Video with cloning/downloading, compiling, and E2E instructions
 [![Cargando video placeholder](http://img.youtube.com/vi/bjlFMKprzbE/0.jpg)](http://www.youtube.com/watch?v=bjlFMKprzbE)
 
-# Características de la solución:
+# Project features:
+* Hexagonal Architecture (AIMS to be...)
 * API First.
-* OAS3
-* Java 23
+* Spring boot 3.4.0
+* OAS3 docs on every served api
+* Interfaces code for consuming and serving APIs generated automatically from the OAS3 spec included in the project. Implement those to customize behaviour
+* Java 23 
 * Docker + compose
-* El código de las interfaces a implementar para consumir y servir las API, se genera automáticamente desde la definición OAS3 de cada uno de los microservicios/módulos. (Se puede usar el comportamiento por defecto o se puede personalizar, cada módulo. Personalizar permite añadir lógica adicional requerida por el negocio. En el controlador que implemente dicha interfaz, añadir la lógica personalizada)
 
-# Pruebas incluidas en la solución
-* Test unitarios (PENDING. few self code to test, but still... we can test the language itself, np)
-* Integration tests (PENDING. Redundant with e2e tests but still...)
-* Test e2e/"Extremo a extremo" Con postman. (Colección includida en repo, 12 peticiones 38 tests)
-* Swagger UI funcionando para las tres APIs de servicio (domain, application, adapter)
-* Inicialización de datos H2 correcta (Se puede probar la consola si se arranca domain independientemente y se accede por localhost:8082/h2/console usuario sa, contraseña en blanco)
-* CI-pipeline-fase1: Cada vez que se hace un push, se verica que el código compila y construye los artefactos necesarios con maven (Github Actions)
-* CI-pipeline-fase2: Si la ejecución de maven (CI-pipeline-fase1) es correcta, se generan las imágenes de docker para cada uno de los módulos/microservicios  (Github Actions)
-* CI-pipeline-fase3: Cuando la fase 2 (CI-pipeline-fase2) se haya completado, se comprueba que el fichero docker-compose.yml tenga una sintaxis correcta, así como que todos los servicios incluidos en él levanten correctamente un contenedor de Docker  (Github Actions) 
 
-## Swagger UI. Accesso a todas las APIs
+# Tests Included 
+* (PENDING) Unit Tests
+* (PENDING) Integration tests 
+* Test e2e with postman. (E2E Postman collection included in root, with 12 requests and 38 e2e tests written in postman script api)
+* Swagger UI working for all 3 modules/layers (domain, application, adapter)
+* CI-pipeline-phase1: GHAction for compiling everything after push (Github Actions).
+* CI-pipeline-phase2: If CI-pipeline-phase1) went ok, create docker image for each module/layer. (Github Actions)
+* CI-pipeline-phase3: when CI-pipeline-phase2 is completed, verify docker compose file (Github Actions) 
+
+## Swagger UI. Access all APIs
 - [Adapter](http://localhost:8080/swagger-ui/index.html) http://localhost:8080/swagger-ui/index.html
 - [Application](http://localhost:8081/swagger-ui/index.html) http://localhost:8081/swagger-ui/index.html
 - [Domain](http://localhost:8082/swagger-ui/index.html) http://localhost:8082/swagger-ui/index.html
  
-# Instrucciones para la puesta en marcha
-### Requisitos
-Configuración de las variables de entorno:
+# Instructions to build, run and test
+### Requisites
+Setting up Environment Variables:
 
 ![alt text][captura_env_vars]
 
 [captura_env_vars]: https://github.com/kapeas/gftidtx/blob/main/enviroment-vars.png?raw=true "env vars alt text"
 
-* Docker Desktop ([Windows](https://docs.docker.com/desktop/setup/install/windows-install/)) o Docker Engine ([Linux/Mac](https://docs.docker.com/engine/install/)) instalado y permisos para construir imagen, arrancar un contenedor, etc.
+* Docker Desktop ([Windows](https://docs.docker.com/desktop/setup/install/windows-install/)) or Docker Engine ([Linux/Mac](https://docs.docker.com/engine/install/)) installed.
 * OpenJDK 23.
-* Apache Maven. 3.8+, o cualquier versión reciente.  
-* Variable de entorno JAVA_HOME apuntando a la ruta raiz de openjdk 23  (Recomendadas las versiones .tar.gz o .zip).
-* $JAVA_HOME/bin debe formar parte de los valores en la cadena del valor de la variable de entorno $PATH. Comprobar qué versión de java se está ejecutando al escribir java -version en simbolo del sistema para verificar que se ejecuta la deseada.
+* Apache Maven. 3.8+, or any other recent version. (with mvn executable folder included in PATH environment variable)  
+* JAVA_HOME pointing to root of jdk23 (tar.gz or zip versions recommended)
+* $JAVA_HOME/bin must be part of the value of PATH environment variable.
 
 
-Si se cumplen esos requisitos, clonamos el repositorio, y desde el directorio del repo ejecutamos el siguiente comando
+If all the above is met, clone repo and from root folder run:
 ```bash
 mvn clean package
 docker compose up --build
 ```
 
-### Ejecución de las pruebas E2E con Postman:
-- Importamos una nueva colección postman desde el fichero: GFT-Process-E2E-TESTS-Collection.postman_collection.json
-- Sobre esa colección, botón derecho, Ejecutar colección. Deben ejecutarse las 12 peticiones y sus tests, y mostrar los resultados de cada uno de los pasos. Todos OK.
-- (Insertar capturas resultados.)
+### Running E2E tests included with postman
+- Import new collection from file E2E-TESTS-Collection.postman_collection.json
+- On this collection, open menu and choose "Run collection". Choose/confirm run options and execute all tests. All must pass. 12 requests and 38 tests.
 
-### API-FIRST: Generar código de los contralodores REST de servicio y cliente desde la definición de API en OAS3. También los clientes
-Esto nos permite generar las interfaces a implementar para los clientes y servicios
-
+### API-FIRST: Generate code for interfaces from definitions.
 ```bash
 mvn clean compile
 ```
-
-### Arrancar el servicio/módulo localmente (sin docker)
-Desde la raíz de los módulos, en caso de querer probar un sólo módulo.
-
-```bash
-mvn clean spring-boot:run
-```
-
-### Otras recomendaciones y consideraciones
-Pendiente
-
-
-
-### Limpiar
-Para eliminar código/ficheros generados automáticamente desde maven (Clases REST de servidor y/o cliente)
-
-```bash
-mvn clean
-```
-
-### Otros comandos.
-For further reference, please consider the following sections:
