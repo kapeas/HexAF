@@ -1,4 +1,4 @@
-name: Dockerizar domain-application-adapter
+name: Dockerize domain-application-adapter
 on:
   workflow_run:
         workflows: ['Java CI with Maven']

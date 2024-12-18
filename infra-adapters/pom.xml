@@ -86,8 +86,8 @@
 							<inputSpec>${project.basedir}/src/main/resources/adapter-oas-api.yml</inputSpec>
 							<generatorName>spring</generatorName>
 							<output>${project.build.directory}/generated-sources/openapi</output>
-							<apiPackage>com.gftinditex.adapterserver.api</apiPackage>
-							<modelPackage>com.gftinditex.adapterserver.model</modelPackage>
+							<apiPackage>es.cloudnatives.flst.adapterserver.api</apiPackage>
+							<modelPackage>es.cloudnatives.flst.adapterserver.model</modelPackage>
 							<configOptions>
 								<library>spring-boot</library>
 								<oas3>true</oas3>
@@ -124,9 +124,9 @@
 							<generateSupportingFiles>true</generateSupportingFiles>
 							<output>${project.build.directory}/generated-sources</output>
 							<!-- Model java package name -->
-							<modelPackage>com.gftinditex.generatedadapterclient.model</modelPackage>
+							<modelPackage>es.cloudnatives.flst.generatedadapterclient.model</modelPackage>
 							<!-- API java package name -->
-							<apiPackage>com.gftinditex.generatedadapterclient.api</apiPackage>
+							<apiPackage>es.cloudnatives.flst.generatedadapterclient.api</apiPackage>
 
 							<!-- Template to override some default generation template for the webclient -->
 							<templateDirectory>
