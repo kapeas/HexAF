@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.time.OffsetDateTime;
+import java.util.LinkedHashMap;
 import java.util.Optional;
 
 
@@ -37,42 +38,39 @@ public class PriceByDateController implements AdapterProductsApi {
         try {
             clientResponse = api.getProductPriceApplicationClient(dateTime, productId, brand);
         } catch (ApiException e) {
-            e.printStackTrace();
-            clientResponse.setProductId(productId);
-            clientResponse.setRequestedDate(dateTime);
-            clientResponse.setBrand(brand);
-            return processApiException(e, clientResponse, response);
+            String responseBody = e.getResponseBody();
+            logger.error("ADAPTER!!!APPLICATION api exception response body: " + responseBody);
+            JSONParser errorResponseJson = new JSONParser(responseBody);
+
+            try {
+                LinkedHashMap<String, Object> object = errorResponseJson.object();
+                response.setBackendMessage(object.get("backend_message").toString());
+                clientResponse.setBackendMessage(object.get("backend_message").toString());
+                int code = e.getCode();
+                response.setBackendMessage("Adapter Pending Application msg. failing previous set backend msg line 49");
+                response.setProductId(productId);
+                response.setRequestedDate(dateTime != null ? dateTime : OffsetDateTime.now());
+
+                switch (code) {
+                    case 404 -> {
+                        logger.error("Adapter 404 error msg");
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapClientRespToServerResp(response,clientResponse).getBody());
+                    }
+                    case 400 -> {
+                        logger.error("Adapter 400 error msg");
+                        return ResponseEntity.badRequest().body(mapClientRespToServerResp(response,clientResponse).getBody());
+                    }
+                    default -> throw new RuntimeException(e);
+                }
+            } catch (ParseException ex) {
+                logger.error(e.getMessage());
+                response.setBackendMessage("parse exception in application while consuming domain");
+            }
+            return mapClientRespToServerResp(response, clientResponse);
         }
+
         logger.info("<< Adapter PriceByDateController productsGet %s %s %s", dateTime, productId, brand);
         return mapClientRespToServerResp(response, clientResponse);
-    }
-
-    private static ResponseEntity<GetProductPriceAdapterServer200Response> processApiException(ApiException e, GetProductPriceApplicationClient200Response clientResponse, GetProductPriceAdapterServer200Response response) {
-        try {
-            JSONParser errorResponseJson = new JSONParser(e.getResponseBody());
-            clientResponse.setBackendMessage(errorResponseJson.object().get("backend_message")!=null ?
-                    errorResponseJson.object().get("backend_message").toString() :
-                    "Could not get real message from application while consuming domain app.");
-        } catch (ParseException ex) {
-            throw new RuntimeException(ex);
-        }
-
-
-        int code = e.getCode();
-
-
-        switch (code) {
-            case 404 -> {
-                mapClientRespToServerResp(response, clientResponse);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-            }
-            case 400 -> {
-
-                mapClientRespToServerResp(response, clientResponse);
-                return ResponseEntity.badRequest().body(response);
-            }
-            default -> throw new RuntimeException(e);
-        }
     }
 
     private static ResponseEntity<GetProductPriceAdapterServer200Response> mapClientRespToServerResp(GetProductPriceAdapterServer200Response response, GetProductPriceApplicationClient200Response clientResponse) {

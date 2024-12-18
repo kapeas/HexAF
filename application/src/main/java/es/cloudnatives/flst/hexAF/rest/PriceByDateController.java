@@ -52,10 +52,10 @@ public class PriceByDateController implements ApplicationProductsApi {
 
             try {
                 LinkedHashMap<String, Object> object = errorResponseJson.object();
-                response.setBackendMessage(object.get("backend_message").toString());
-                clientResponse.setBackendMessage(object.get("backend_message").toString());
+                String backendMessage = object.get("backend_message").toString();
+                response.setBackendMessage(backendMessage);
+                clientResponse.setBackendMessage(backendMessage);
                 int code = e.getCode();
-                response.setBackendMessage("Application Pending domain msg. failing previous set backend msg line 49");
                 response.setProductId(productId);
                 response.setRequestedDate(dateTime != null ? dateTime : OffsetDateTime.now());
 
@@ -66,7 +66,10 @@ public class PriceByDateController implements ApplicationProductsApi {
                     case 400 -> {
                         return ResponseEntity.badRequest().body(mapClientResptToServerResp(response,clientResponse));
                     }
-                    default -> throw new RuntimeException(e);
+                    default -> {
+                        logger.error("After try try switch, got default branch :/");
+                        throw new RuntimeException(e);
+                    }
                 }
             } catch (ParseException ex) {
                 logger.error(e.getMessage());
@@ -80,11 +83,6 @@ public class PriceByDateController implements ApplicationProductsApi {
         response.setCurrency(clientResponse.getCurrency());
         response.setBrand(clientResponse.getBrand());
         logger.error(">>>>>>>>>>>>>>> Before setting backend message");
-        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
-        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
-        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
-        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
-        logger.error("El valor de backendmsg recibido de domain en application es" + clientResponse.getBackendMessage());
         response.setBackendMessage(clientResponse.getBackendMessage() != null ? clientResponse.getBackendMessage() : null);
         logger.error("<<<<<<<<<<<<<<< After setting backend message");
         response.setPrice(clientResponse.getPrice());
