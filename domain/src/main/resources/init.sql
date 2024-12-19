@@ -6,11 +6,12 @@ CREATE TABLE Prices (
     product_id INT,
     priority INT,
     price DECIMAL(10, 2),
-    curr VARCHAR(3)
+    curr VARCHAR(3),
+    vulnDesc VARCHAR(40) -- add a field for concatenating attacks
 );
 
-INSERT INTO prices (brand_id, start_date, end_date, price_list, product_id, priority, price, curr) VALUES
-(1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR'),
-(1, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 35455, 1, 25.45, 'EUR'),
-(1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR'),
-(1, '2020-06-15 16:00:00', '2020-12-31 23:59:59', 4, 35455, 1, 38.95, 'EUR');
+INSERT INTO prices (brand_id, start_date, end_date, price_list, product_id, priority, price, curr, vulnDesc) VALUES
+(1, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 35455, 0, 35.50, 'EUR', 'clean storage campaign' ),
+(1, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 35455, 1, 25.45, 'EUR', 'special july offer campaign'),
+(1, '2020-06-15 00:00:00', '2020-06-15 11:00:00', 3, 35455, 1, 30.50, 'EUR', 'last minute late july offer campaign'),
+(1, '2020-06-15 16:00:00', '2020-12-31 23:59:59', 4, 35455, 1, 38.95, 'EUR', 'until xmas special offer campaign'),);

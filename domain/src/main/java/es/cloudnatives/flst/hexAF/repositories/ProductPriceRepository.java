@@ -2,6 +2,7 @@ package es.cloudnatives.flst.hexAF.repositories;
 
 import es.cloudnatives.flst.hexAF.model.ProductPriceAtGivenDate;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface ProductPriceRepository extends JpaRepository<ProductPriceAtGive
 
     @Query("SELECT p FROM Prices p")
     Collection<ProductPriceAtGivenDate> getAllProdutPrices();
+
+    //VULNERABLE QUERY. Testing...
+    @NativeQuery("SELECT * FROM Prices WHERE DESCRIPTION LIKE %:vulnParamValue% ")
+    Collection<ProductPriceAtGivenDate> getVulnerableResults(String vulnParamValue);
 }
