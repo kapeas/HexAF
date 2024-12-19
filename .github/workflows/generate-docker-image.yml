@@ -8,7 +8,7 @@ on:
 
 jobs:
   
-  generar-imagenes-docker:
+  generate-docker-images:
 
     runs-on: ubuntu-latest
     steps:
